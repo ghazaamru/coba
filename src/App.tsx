@@ -969,11 +969,11 @@ export default function App() {
       {/* Main Container */}
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-6 space-y-6 pb-28 sm:pb-12">
         {/* Navigation Tabs */}
-        <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-          <div className="flex items-center gap-1 p-1 bg-zinc-900/90 rounded-lg border border-zinc-800/80">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800 pb-3">
+          <div className="flex items-center gap-1 p-1 bg-zinc-900/90 rounded-lg border border-zinc-800/80 overflow-x-auto scrollbar-none max-w-full">
             <button
               onClick={() => setCurrentTab('overview')}
-              className={`px-3.5 py-1.5 rounded-md text-xs font-medium tracking-tight transition cursor-pointer ${
+              className={`px-3 py-1.5 rounded-md text-xs font-medium tracking-tight whitespace-nowrap transition cursor-pointer shrink-0 ${
                 currentTab === 'overview'
                   ? 'bg-zinc-800 text-zinc-100 shadow-xs'
                   : 'text-zinc-400 hover:text-zinc-200'
@@ -983,7 +983,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setCurrentTab('activity')}
-              className={`px-3.5 py-1.5 rounded-md text-xs font-medium tracking-tight transition cursor-pointer ${
+              className={`px-3 py-1.5 rounded-md text-xs font-medium tracking-tight whitespace-nowrap transition cursor-pointer shrink-0 ${
                 currentTab === 'activity'
                   ? 'bg-zinc-800 text-zinc-100 shadow-xs'
                   : 'text-zinc-400 hover:text-zinc-200'
@@ -993,7 +993,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setCurrentTab('analytics')}
-              className={`px-3.5 py-1.5 rounded-md text-xs font-medium tracking-tight transition cursor-pointer ${
+              className={`px-3 py-1.5 rounded-md text-xs font-medium tracking-tight whitespace-nowrap transition cursor-pointer shrink-0 ${
                 currentTab === 'analytics'
                   ? 'bg-zinc-800 text-zinc-100 shadow-xs'
                   : 'text-zinc-400 hover:text-zinc-200'
@@ -1003,7 +1003,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setCurrentTab('subscriptions')}
-              className={`px-3.5 py-1.5 rounded-md text-xs font-medium tracking-tight transition cursor-pointer ${
+              className={`px-3 py-1.5 rounded-md text-xs font-medium tracking-tight whitespace-nowrap transition cursor-pointer shrink-0 ${
                 currentTab === 'subscriptions'
                   ? 'bg-zinc-800 text-zinc-100 shadow-xs'
                   : 'text-zinc-400 hover:text-zinc-200'
@@ -1013,7 +1013,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setCurrentTab('data')}
-              className={`px-3.5 py-1.5 rounded-md text-xs font-medium tracking-tight transition cursor-pointer ${
+              className={`px-3 py-1.5 rounded-md text-xs font-medium tracking-tight whitespace-nowrap transition cursor-pointer shrink-0 ${
                 currentTab === 'data'
                   ? 'bg-zinc-800 text-zinc-100 shadow-xs'
                   : 'text-zinc-400 hover:text-zinc-200'
@@ -1024,7 +1024,7 @@ export default function App() {
           </div>
 
           {/* Month Range Selector */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 self-start sm:self-auto">
             <input
               type="month"
               value={selectedMonth}
@@ -1644,28 +1644,36 @@ export default function App() {
               {subscriptions.map((sub) => (
                 <div
                   key={sub.id}
-                  className={`p-4 flex items-center justify-between transition ${
+                  className={`p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition ${
                     sub.active ? 'hover:bg-zinc-900/60' : 'opacity-50 bg-zinc-950/40'
                   }`}
                 >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span
-                      className="w-2.5 h-2.5 rounded-full shrink-0"
-                      style={{ backgroundColor: CATEGORY_COLORS[sub.category] }}
-                    />
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2">
-                        <p className="text-xs font-semibold text-zinc-100 truncate">{sub.name}</p>
-                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800 shrink-0">
-                          Due day {sub.billingDay}
-                        </span>
+                  <div className="flex items-center justify-between sm:justify-start gap-3 min-w-0">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span
+                        className="w-2.5 h-2.5 rounded-full shrink-0"
+                        style={{ backgroundColor: CATEGORY_COLORS[sub.category] }}
+                      />
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <p className="text-xs font-semibold text-zinc-100 truncate">{sub.name}</p>
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800 shrink-0">
+                            Due day {sub.billingDay}
+                          </span>
+                        </div>
+                        <p className="text-[11px] font-mono text-zinc-400 mt-0.5">{sub.category}</p>
                       </div>
-                      <p className="text-[11px] font-mono text-zinc-400 mt-0.5">{sub.category}</p>
+                    </div>
+
+                    <div className="sm:hidden text-right shrink-0">
+                      <span className="text-xs font-mono font-bold text-zinc-100 tabular-nums">
+                        {formatIDR(sub.amount)}
+                      </span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3 shrink-0">
-                    <div className="text-right">
+                  <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0 pt-2 sm:pt-0 border-t border-zinc-800/40 sm:border-0">
+                    <div className="hidden sm:block text-right mr-2">
                       <span className="text-xs font-mono font-bold text-zinc-100 tabular-nums">
                         {formatIDR(sub.amount)}
                       </span>
@@ -1673,15 +1681,15 @@ export default function App() {
 
                     <button
                       onClick={() => handlePostSubToLedger(sub)}
-                      className="px-2.5 py-1 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-300 text-xs font-mono rounded-md transition cursor-pointer"
+                      className="px-2.5 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-300 text-xs font-mono rounded-md transition cursor-pointer"
                       title="Post today's bill to ledger"
                     >
-                      Post to Ledger
+                      Post Bill
                     </button>
 
                     <button
                       onClick={() => handleToggleSubActive(sub.id)}
-                      className={`text-[11px] font-mono px-2 py-1 rounded border transition cursor-pointer ${
+                      className={`text-[11px] font-mono px-2 py-1.5 rounded border transition cursor-pointer ${
                         sub.active
                           ? 'bg-emerald-950/40 border-emerald-800/60 text-emerald-400'
                           : 'bg-zinc-900 border-zinc-800 text-zinc-500'
@@ -1816,7 +1824,7 @@ export default function App() {
       {/* Floating Entry Button for Mobile / Desktop Bottom Right */}
       <button
         onClick={handleOpenAdd}
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 px-4 py-3 bg-zinc-100 hover:bg-white text-zinc-950 font-semibold text-xs tracking-tight rounded-full shadow-lg border border-zinc-300 transition-all duration-150 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-zinc-950"
+        className="fixed bottom-6 right-4 sm:right-6 z-40 flex items-center gap-2 px-4 py-3 bg-zinc-100 hover:bg-white text-zinc-950 font-semibold text-xs tracking-tight rounded-full shadow-xl border border-zinc-300 transition-all duration-150 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-zinc-950"
         aria-label="Add Transaction (Press N)"
         title="New Posting (N)"
       >
@@ -1827,18 +1835,16 @@ export default function App() {
         </kbd>
       </button>
 
-      {/* ------------------------------------------------------------- */}
-      {/* FAST ENTRY MODAL / BOTTOM SHEET */}
-      {/* ------------------------------------------------------------- */}
+      {/* Fast Entry Modal / Bottom Sheet */}
       {isFormOpen && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-xs p-0 sm:p-4">
-          <div className="w-full sm:max-w-md bg-zinc-900 border border-zinc-800 rounded-t-2xl sm:rounded-xl p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+          <div className="w-full sm:max-w-md bg-zinc-900 border-t sm:border border-zinc-800 rounded-t-2xl sm:rounded-xl p-5 shadow-2xl space-y-4 max-h-[85vh] sm:max-h-[90vh] overflow-y-auto pb-8 sm:pb-5">
             <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
               <div>
                 <h3 className="text-sm font-bold text-zinc-100">
                   {editingTx ? 'Edit Transaction' : 'Record Transaction'}
                 </h3>
-                <p className="text-[11px] font-mono text-zinc-500">
+                <p className="text-[11px] font-mono text-zinc-400">
                   {editingTx ? `Reference: ${editingTx.id}` : 'Local journal posting'}
                 </p>
               </div>
@@ -2002,7 +2008,7 @@ export default function App() {
       {/* Budget Configuration Modal */}
       {isBudgetModalOpen && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-xs p-0 sm:p-4">
-          <div className="w-full sm:max-w-md bg-zinc-900 border border-zinc-800 rounded-t-2xl sm:rounded-xl p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+          <div className="w-full sm:max-w-md bg-zinc-900 border-t sm:border border-zinc-800 rounded-t-2xl sm:rounded-xl p-5 shadow-2xl space-y-4 max-h-[85vh] sm:max-h-[90vh] overflow-y-auto pb-8 sm:pb-5">
             <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
               <div>
                 <h3 className="text-sm font-bold text-zinc-100">Monthly Category Caps</h3>
@@ -2069,7 +2075,7 @@ export default function App() {
       {/* Subscription Edit / Create Modal */}
       {isSubModalOpen && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-xs p-0 sm:p-4">
-          <div className="w-full sm:max-w-md bg-zinc-900 border border-zinc-800 rounded-t-2xl sm:rounded-xl p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+          <div className="w-full sm:max-w-md bg-zinc-900 border-t sm:border border-zinc-800 rounded-t-2xl sm:rounded-xl p-5 shadow-2xl space-y-4 max-h-[85vh] sm:max-h-[90vh] overflow-y-auto pb-8 sm:pb-5">
             <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
               <div>
                 <h3 className="text-sm font-bold text-zinc-100">

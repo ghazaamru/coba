@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 2,
+  "colorMeta": {
+    "background": { "displayName": "Canvas Background", "role": "canvas" },
+    "surface": { "displayName": "Card Surface", "role": "surface" },
+    "surface-subtle": { "displayName": "Control Surface", "role": "surface-variant" },
+    "border": { "displayName": "Default Border", "role": "border" },
+    "border-subtle": { "displayName": "Subtle Divider", "role": "border-variant" },
+    "text-primary": { "displayName": "Primary Text", "role": "text" },
+    "text-secondary": { "displayName": "Secondary Text", "role": "text-secondary" },
+    "text-muted": { "displayName": "Muted Text", "role": "text-muted" },
+    "inflow": { "displayName": "Inflow Accent", "role": "success" },
+    "outflow": { "displayName": "Outflow Accent", "role": "danger" }
+  },
+  "typographyMeta": {
+    "sans": { "displayName": "Primary Sans", "target": "ui-chrome" },
+    "mono": { "displayName": "Ledger Monospace", "target": "financial-numbers" }
+  },
+  "rules": {
+    "do": [
+      "Use font-mono with tabular-nums on all financial amounts, dates, and percentages.",
+      "Maintain crisp 1px borders (#27272a) on dark surfaces.",
+      "Keep transaction logging modals zero-latency and offline-safe."
+    ],
+    "dont": [
+      "Do not use fuzzy, high-spread shadows or pastel gradients.",
+      "Do not use non-monospace fonts for currency figures.",
+      "Do not add bouncy easing animations to data tables."
+    ]
+  }
+}
